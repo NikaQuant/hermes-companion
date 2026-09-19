@@ -1,0 +1,21 @@
+{
+  "name": "hermes-companion",
+  "version": "0.3.2",
+  "private": true,
+  "workspaces": [
+    "apps/web"
+  ],
+  "scripts": {
+    "dev": "npm --workspace apps/web run dev",
+    "build": "python scripts/build-web.py",
+    "validate": "python scripts/validate-release.py",
+    "build:react": "npm --workspace apps/web run build:react",
+    "typecheck:react": "npm --workspace apps/web run typecheck",
+    "android:sync": "npm --workspace apps/web run android:sync",
+    "android:open": "npm --workspace apps/web run android:open"
+  },
+  "engines": {
+    "node": ">=20",
+    "npm": ">=10"
+  }
+}

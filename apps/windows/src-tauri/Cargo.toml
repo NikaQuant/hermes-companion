@@ -1,0 +1,18 @@
+[package]
+name = "hermes-companion"
+version = "0.3.2"
+description = "Hermes Companion Windows wrapper"
+authors = ["NikaQuant"]
+edition = "2021"
+
+[lib]
+name = "hermes_companion_lib"
+crate-type = ["staticlib", "cdylib", "rlib"]
+
+[build-dependencies]
+tauri-build = { version = "2", features = [] }
+
+[dependencies]
+tauri = { version = "2", features = [] }
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"

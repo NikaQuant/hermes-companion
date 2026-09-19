@@ -1,0 +1,54 @@
+{
+  "archive": "hermes-companion-20260917T225035Z-final-redacted.zip",
+  "members": [
+    "hermes_companion.sqlite",
+    "profiles.json",
+    "VERSION",
+    "uploads/eddb6229-0c25-4b0d-96c6-ec05d343f6a9/default/a827862b-80b8-4f39-9d5e-21e1dc8272bc/hermes-companion-e2e.txt",
+    "manifest.json"
+  ],
+  "manifest": {
+    "format": 2,
+    "created_at": "20260917T225035Z",
+    "version": "0.3.0",
+    "backup_kind": "redacted",
+    "contains_hermes_api_keys": false,
+    "contains_raw_tokens": false,
+    "contains_password_hashes": true,
+    "device_sessions_revoked": true,
+    "includes_uploads": true,
+    "files": [
+      {
+        "path": "hermes_companion.sqlite",
+        "bytes": 151552,
+        "sha256": "2ea16f409eaadf78dcb9a3832357ced43e3ca40842b83008865997ffe8789a9f"
+      },
+      {
+        "path": "profiles.json",
+        "bytes": 3460,
+        "sha256": "87a82fba4907797fb7f3a130566f271b37114061537ae101e9f9504442e73f9c"
+      },
+      {
+        "path": "VERSION",
+        "bytes": 6,
+        "sha256": "d915cc95d6ca8f47ae297713ed46d4e5c5d99ddd29fc3c61e263bdf305f2b5b0"
+      }
+    ],
+    "uploads": [
+      {
+        "path": "eddb6229-0c25-4b0d-96c6-ec05d343f6a9/default/a827862b-80b8-4f39-9d5e-21e1dc8272bc/hermes-companion-e2e.txt",
+        "bytes": 34,
+        "sha256": "e707c47b62e97a011a40fc23446abcdd7acfdd6974421af307b48bbafad5e5f5"
+      }
+    ]
+  },
+  "quick_check": "ok",
+  "counts": {
+    "users": 1,
+    "auth_tokens": 0,
+    "handoffs": 0,
+    "gateway_tickets": 0,
+    "audit_log": 7,
+    "uploads": 1
+  }
+}

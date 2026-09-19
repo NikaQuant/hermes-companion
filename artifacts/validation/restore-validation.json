@@ -1,0 +1,14 @@
+{
+  "source": {
+    "quick_check": "ok",
+    "users": 1,
+    "audit_log": 7,
+    "auth_tokens": 4
+  },
+  "restored": {
+    "quick_check": "ok",
+    "users": 1,
+    "audit_log": 7,
+    "auth_tokens": 0
+  }
+}

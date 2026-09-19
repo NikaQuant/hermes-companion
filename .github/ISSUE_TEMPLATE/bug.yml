@@ -1,0 +1,30 @@
+name: Bug report
+description: Something is broken
+labels: [bug]
+body:
+  - type: textarea
+    id: what
+    attributes:
+      label: What happened
+      placeholder: What you did, what you expected, what you got.
+    validations:
+      required: true
+  - type: input
+    id: version
+    attributes:
+      label: Companion version
+      description: The line under the Hermes logo, e.g. v0.3.2 · abc1234
+    validations:
+      required: true
+  - type: dropdown
+    id: os
+    attributes:
+      label: OS of the bridge host
+      options: [Windows, Linux, macOS]
+    validations:
+      required: true
+  - type: textarea
+    id: logs
+    attributes:
+      label: Relevant log lines
+      description: From logs/bridge.log. Redact emails, keys, tokens.

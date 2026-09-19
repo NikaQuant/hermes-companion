@@ -1,0 +1,31 @@
+
+> /opt/pyvenv/bin/python3 -m pytest -q
+............................                                             [100%]
+
+> /opt/pyvenv/bin/python3 -m compileall -q services/bridge/app scripts
+
+> /opt/pyvenv/bin/python3 scripts/build-web.py
+Built Hermes Companion web 0.3.0: 8 files
+assets/app.6aa0344b5d2f.js
+assets/app.a47cf059eb14.css
+icon-192.png
+icon-512.png
+icon.svg
+index.html
+manifest.webmanifest
+sw.js
+
+> /opt/pyvenv/bin/python3 scripts/validate-release.py
+Release validation passed for Hermes Companion 0.3.0
+Profiles: default, mentos, laneb-lab, mql5-forge, agentic-trading, polymarket
+Web assets: 1 JS, 1 CSS, manifest + service worker
+Documentation: 23 required files
+Validation artifacts: 9 required files
+
+> /opt/nvm/versions/node/v22.16.0/bin/node --check apps/web/standalone/app.js
+
+> /opt/nvm/versions/node/v22.16.0/bin/node --check apps/desktop-plugin/plugin.js
+
+> /opt/nvm/versions/node/v22.16.0/bin/node --check /mnt/data/hermes-companion-v0.3-work/Hermes-Companion-v0.2.0/apps/web/dist/assets/app.6aa0344b5d2f.js
+
+All requested validation passed.

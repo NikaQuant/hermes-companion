@@ -1,0 +1,7 @@
+Hermes Companion backup/restore validation: PASS
+- Format 2 manifest verified
+- Per-file sizes and SHA-256 verified by restore tool
+- SQLite quick_check: ok
+- Redacted backup removed auth_tokens, handoffs, and gateway_tickets
+- Users and audit records survived restore
+- Uploaded-file restoration path exercised

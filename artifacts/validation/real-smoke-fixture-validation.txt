@@ -1,0 +1,8 @@
+Hermes Companion real-Hermes smoke tool: PASS AGAINST PROTOCOL FIXTURE
+- Read-only fleet, projects, sessions, models, and jobs checks passed
+- Temporary session creation passed
+- Minimal durable run reached run.completed
+- Transcript retrieval passed
+- Temporary session deletion passed
+- Logout passed
+NOTE: This validates the smoke tool and HTTP contract, not Nik's real Hermes VPS.

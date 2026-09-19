@@ -1,0 +1,6 @@
+tests/test_app.py: 8
+tests/test_control_plane.py: 12
+tests/test_operator_scripts.py: 2
+tests/test_profiles.py: 4
+tests/test_security.py: 2
+

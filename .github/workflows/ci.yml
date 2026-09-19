@@ -1,0 +1,83 @@
+name: Validate
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  backend-and-pwa:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+          cache: pip
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: pip install -e './services/bridge[dev]'
+      - run: cp config/profiles.example.json config/profiles.json
+      - run: python -m pytest services/bridge/tests
+      - run: python -m compileall -q services/bridge/app scripts
+      - run: ruff check services/bridge/app services/bridge/tests
+      - run: python scripts/build-web.py
+      - run: python scripts/validate-release.py
+      - run: node --check apps/web/standalone/app.js
+      - run: node --check apps/desktop-plugin/plugin.js
+      - name: Live gateway protocol fixture
+        run: python scripts/fixture-e2e.py --gateway --artifacts artifacts/gateway-e2e
+      - name: Validate production web artifact
+        shell: bash
+        run: |
+          test -f apps/web/dist/index.html
+          test -f apps/web/dist/manifest.webmanifest
+          test -f apps/web/dist/sw.js
+          test "$(find apps/web/dist/assets -name '*.js' | wc -l)" -eq 1
+          node --check "$(find apps/web/dist/assets -name '*.js' -print -quit)"
+
+  browser-e2e:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+          cache: pip
+      - run: pip install -e './services/bridge[dev]' playwright
+      - run: cp config/profiles.example.json config/profiles.json
+      - run: python -m playwright install --with-deps chromium
+      - run: python scripts/build-web.py
+      - name: Desktop and mobile control-plane workflow
+        run: python scripts/fixture-e2e.py --browser --artifacts artifacts/browser-e2e
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: browser-e2e
+          path: artifacts/browser-e2e
+          if-no-files-found: ignore
+
+  windows-script-parse:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Parse every PowerShell operator script
+        shell: powershell
+        run: |
+          $failed = $false
+          Get-ChildItem scripts -Filter *.ps1 | ForEach-Object {
+            $tokens = $null
+            $errors = $null
+            [void][System.Management.Automation.Language.Parser]::ParseFile(
+              $_.FullName,
+              [ref]$tokens,
+              [ref]$errors
+            )
+            if ($errors.Count -gt 0) {
+              $failed = $true
+              Write-Host "Syntax errors in $($_.FullName)" -ForegroundColor Red
+              $errors | ForEach-Object { Write-Host $_.Message -ForegroundColor Red }
+            }
+          }
+          if ($failed) { throw 'One or more PowerShell scripts failed to parse.' }

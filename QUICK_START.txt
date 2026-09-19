@@ -1,0 +1,81 @@
+HERMES COMPANION v0.3.0 — QUICK START
+=====================================
+
+PURPOSE
+-------
+Private website/PWA plus Android/Windows source connected to the same regular-Hermes
+profiles and durable sessions used by Hermes Desktop.
+
+DO NOT INSTALL IN SAFETY WORLD
+------------------------------
+Run everything below as the regular Administrator account. Do not run as HermesSafety
+and do not use a Hermes-Safety directory.
+
+FASTEST INSTALL
+---------------
+1. Extract the release ZIP.
+2. Open Administrator PowerShell in the extracted folder.
+3. Run:
+
+   Set-ExecutionPolicy -Scope Process Bypass
+   .\scripts\bootstrap-windows.ps1
+
+4. Enter the initial Companion administrator email and password when prompted.
+5. Open http://127.0.0.1:8787
+
+STABLE INSTALL LOCATION + ROLLBACK COPY
+---------------------------------------
+   .\scripts\deploy-windows.ps1 -InstallRoot C:\HermesCompanion
+
+OPTIONAL FULL LIVE GATEWAY
+--------------------------
+Durable HTTP runs work without this. To add live JSON-RPC sessions and clarification cards:
+
+   .\scripts\enable-live-gateway.ps1
+
+This keeps hermes serve on 127.0.0.1:9119. Never expose port 9119 directly.
+
+REMOTE PHONE ACCESS
+-------------------
+Put http://127.0.0.1:8787 behind private HTTPS using Cloudflare Tunnel, Caddy, Tailscale,
+or another trusted VPN/reverse proxy. Never point the app at Hermes port 8642 or 9119.
+
+VERIFY THE REAL HERMES HOST
+---------------------------
+Read-only:
+
+   .\.venv\Scripts\python.exe .\scripts\real-hermes-smoke.py --profile default
+
+Optional temporary session + one minimal model call:
+
+   .\.venv\Scripts\python.exe .\scripts\real-hermes-smoke.py --profile default --write-test
+
+BACKUP
+------
+Token-scrubbed restore archive:
+
+   .\scripts\backup-local.ps1 -Label before-change
+
+Full disaster backup including .env and Hermes keys (store privately):
+
+   .\scripts\backup-local.ps1 -Label disaster -IncludeSecrets -IncludeUploads
+
+RESTORE
+-------
+   .\scripts\restore-backup.ps1 -Archive C:\path\backup.zip
+
+LOGS
+----
+   .\logs\bridge.log
+
+IMPORTANT PORTS
+---------------
+8787  Companion bridge/PWA — only service intended for reverse proxying
+8642  Hermes API — loopback only
+9119  Optional hermes serve — loopback only
+
+NATIVE BUILDS
+-------------
+Android debug APK:  .\scripts\build-android.ps1
+Windows installers: .\scripts\build-windows-app.ps1
+Production signing requires your own private certificates.

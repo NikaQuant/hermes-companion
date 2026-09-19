@@ -1,0 +1,113 @@
+{
+  "tested_at": "2026-09-18T01:54:35.512084+00:00",
+  "url": "http://127.0.0.1:8787",
+  "profile": "default",
+  "write_test": true,
+  "checks": [
+    {
+      "name": "bridge health",
+      "method": "GET",
+      "path": "/api/health",
+      "status": 200,
+      "ok": true
+    },
+    {
+      "name": "login",
+      "method": "POST",
+      "path": "/api/auth/login",
+      "status": 200,
+      "ok": true
+    },
+    {
+      "name": "identity",
+      "method": "GET",
+      "path": "/api/auth/me",
+      "status": 200,
+      "ok": true
+    },
+    {
+      "name": "profile inventory",
+      "method": "GET",
+      "path": "/api/profiles",
+      "status": 200,
+      "ok": true
+    },
+    {
+      "name": "fleet overview",
+      "method": "GET",
+      "path": "/api/overview",
+      "status": 200,
+      "ok": true
+    },
+    {
+      "name": "project overview",
+      "method": "GET",
+      "path": "/api/projects",
+      "status": 200,
+      "ok": true
+    },
+    {
+      "name": "sessions",
+      "method": "GET",
+      "path": "/api/profiles/default/sessions?limit=5",
+      "status": 200,
+      "ok": true
+    },
+    {
+      "name": "model options",
+      "method": "GET",
+      "path": "/api/profiles/default/model-options",
+      "status": 200,
+      "ok": true
+    },
+    {
+      "name": "jobs",
+      "method": "GET",
+      "path": "/api/profiles/default/jobs",
+      "status": 200,
+      "ok": true
+    },
+    {
+      "name": "create temporary session",
+      "method": "POST",
+      "path": "/api/profiles/default/sessions",
+      "status": 200,
+      "ok": true
+    },
+    {
+      "name": "start minimal run",
+      "method": "POST",
+      "path": "/api/profiles/default/runs",
+      "status": 200,
+      "ok": true
+    },
+    {
+      "name": "read completed transcript",
+      "method": "GET",
+      "path": "/api/profiles/default/sessions/api_1789696477_1e89a2c7/messages?limit=20",
+      "status": 200,
+      "ok": true
+    },
+    {
+      "name": "delete temporary session",
+      "method": "DELETE",
+      "path": "/api/profiles/default/sessions/api_1789696477_1e89a2c7",
+      "status": 200,
+      "ok": true
+    },
+    {
+      "name": "logout",
+      "method": "POST",
+      "path": "/api/auth/logout",
+      "status": 200,
+      "ok": true
+    }
+  ],
+  "version": "0.3.0",
+  "run": {
+    "run_id": "run_68df4edb8e5a42da8e8264e020bd417d",
+    "session_id": "api_1789696477_1e89a2c7",
+    "terminal_event": "run.completed"
+  },
+  "ok": true
+}

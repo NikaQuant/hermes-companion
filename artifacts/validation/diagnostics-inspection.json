@@ -1,0 +1,16 @@
+{
+  "archive": "diagnostics.zip",
+  "members": [
+    "VERSION",
+    "config/profiles.json",
+    "VALIDATION_STATUS.txt",
+    "BUILD_REPORT.md",
+    "artifacts/validation/final-validation.txt",
+    "diagnostics.json",
+    "README.txt"
+  ],
+  "version": "0.3.0",
+  "environment_keys_only": [],
+  "contains_database_rows": false,
+  "contains_env_values": false
+}

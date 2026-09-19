@@ -1,0 +1,7 @@
+Hermes Companion diagnostics bundle validation: PASS
+- Bundle opens successfully
+- .env values are excluded
+- Runtime database rows are excluded
+- Upload contents and chat transcripts are excluded
+- Only environment key names may appear
+- Release/version/profile/validation metadata is included

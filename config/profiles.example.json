@@ -1,0 +1,30 @@
+{
+  "profiles": [
+    {
+      "slug": "default",
+      "label": "Hermes",
+      "description": "Your main Hermes profile.",
+      "route_prefix": "",
+      "api_key_env": "HERMES_API_KEY_DEFAULT",
+      "accent": "#8b5cf6",
+      "permissions": {
+        "read": true, "chat": true, "session_write": true, "run_control": true,
+        "approval": true, "jobs_write": true, "files_write": true, "gateway_live": true
+      },
+      "project_kind": "core"
+    },
+    {
+      "slug": "research",
+      "label": "Research",
+      "description": "Example second profile. slug = the name from `hermes profile list`; route_prefix = /p/<slug>; api_key_env = HERMES_API_KEY_<SLUG_UPPER>.",
+      "route_prefix": "/p/research",
+      "api_key_env": "HERMES_API_KEY_RESEARCH",
+      "accent": "#06b6d4",
+      "permissions": {
+        "read": true, "chat": true, "session_write": true, "run_control": true,
+        "approval": true, "jobs_write": false, "files_write": true, "gateway_live": true
+      },
+      "project_kind": "general"
+    }
+  ]
+}

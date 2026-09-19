@@ -1,0 +1,24 @@
+Hermes Companion v0.3.0 validation: PASS WITH TARGET-RUNTIME LIMITATIONS
+
+PASS  28/28 backend tests
+PASS  Python compileall for bridge and scripts
+PASS  deterministic production PWA build (8 files, hashed JS/CSS)
+PASS  release/version/profile/document validator
+PASS  production JavaScript syntax
+PASS  Desktop-plugin JavaScript syntax
+PASS  desktop browser control-plane workflow
+PASS  390px mobile command-center and chat workflow
+PASS  controlled multipart file upload
+PASS  guarded live-gateway relay and ticket-replay rejection
+PASS  format-2 redacted backup and restore validation
+PASS  real-Hermes smoke utility: 14 checks against protocol fixture
+PASS  no browser console/page errors in tested flows
+PASS  Safety World aliases excluded and six-profile allowlist enforced
+PASS  no runtime database, .env, signing key, virtualenv or node_modules shipped
+
+NOT BUILT  Signed Android APK/AAB (Android SDK + signing key unavailable)
+NOT BUILT  Windows MSI/NSIS/EXE (Windows + Rust/Cargo + certificate unavailable)
+NOT RUN    PowerShell scripts on Windows (PowerShell unavailable in this container)
+NOT RUN    Installed Hermes Desktop plugin runtime (requires Nik's Desktop build)
+NOT RUN    Nik's real Hermes gateway/profile/provider/tool integration
+NOT RUN    Production HTTPS/VPN/tunnel and phone background behavior

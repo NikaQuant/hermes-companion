@@ -1,0 +1,2 @@
+Hermes Companion live-gateway relay E2E passed
+Fixture artifacts: /mnt/data/hermes-companion-v0.3-final-gateway-e2e
