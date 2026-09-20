@@ -10,6 +10,12 @@ The browser never sees a Hermes API key. A local FastAPI bridge on `127.0.0.1:87
 
 [Install](#install-windows) · [Phone](#phone) · [How it works](#how-it-works) · [Docs](#docs) · [Security](#security)
 
+<p align="center">
+  <img src="docs/images/phone-home.jpg" alt="Home on a phone" width="220">
+  <img src="docs/images/phone-assistants.jpg" alt="Assistants list" width="220">
+  <img src="docs/images/phone-more.jpg" alt="More menu" width="220">
+</p>
+
 ---
 
 ## Install (Windows)
