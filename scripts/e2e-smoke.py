@@ -66,8 +66,7 @@ with sync_playwright() as playwright:
     login(page)
 
     page.locator(".assistant-card").first.wait_for()
-    assert page.locator(".assistant-card").count() >= 1
-    assert page.locator(".assistant-card .status-pill.online").count() >= 1
+    page.locator(".assistant-card .status-pill.online").first.wait_for(timeout=20_000)
     page.screenshot(path=str(SCREENSHOTS / "command-center.png"), full_page=True)
 
     navigate(page, "/projects", "Projects")
