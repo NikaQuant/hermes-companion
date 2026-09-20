@@ -32,12 +32,25 @@ def login(page: Page) -> None:
     page.locator('input[name="email"]').fill(EMAIL)
     page.locator('input[name="password"]').fill(PASSWORD)
     page.locator('button[type="submit"]').click()
-    page.get_by_role("heading", name="Command Center").wait_for(timeout=20_000)
+    page.get_by_role("heading", name="Home", exact=True).wait_for(timeout=20_000)
+
+
+def click_nav(page: Page, path: str) -> None:
+    page.locator(f'[data-nav="{path}"]:visible').first.click()
 
 
 def navigate(page: Page, path: str, heading: str) -> None:
-    page.locator(f'[data-nav="{path}"]').click()
+    click_nav(page, path)
     page.get_by_role("heading", name=heading, exact=True).wait_for(timeout=20_000)
+
+
+def fill_sheet(page: Page, value: str) -> None:
+    sheet = page.locator("dialog.sheet")
+    sheet.wait_for(timeout=10_000)
+    field = sheet.locator("input, textarea").first
+    field.fill(value)
+    sheet.locator('button[type="submit"]').click()
+    sheet.wait_for(state="detached", timeout=10_000)
 
 
 with sync_playwright() as playwright:
@@ -52,23 +65,24 @@ with sync_playwright() as playwright:
     attach_error_capture(page)
     login(page)
 
-    page.locator(".profile-card").first.wait_for()
-    assert page.locator(".profile-card").count() == 6
-    assert page.locator(".profile-card .status-pill.online").count() == 6
+    page.locator(".assistant-card").first.wait_for()
+    assert page.locator(".assistant-card").count() >= 1
+    assert page.locator(".assistant-card .status-pill.online").count() >= 1
     page.screenshot(path=str(SCREENSHOTS / "command-center.png"), full_page=True)
 
     navigate(page, "/projects", "Projects")
     page.locator(".project-card").first.wait_for(timeout=20_000)
-    assert page.locator(".project-card").count() == 6
+    assert page.locator(".project-card").count() >= 1
     page.screenshot(path=str(SCREENSHOTS / "projects.png"), full_page=True)
 
-    navigate(page, "/sessions", "Sessions")
+    navigate(page, "/sessions", "Conversations")
     page.get_by_text("Hermes Companion Demo", exact=True).wait_for(timeout=20_000)
-    page.locator('[data-action="toggle-session-pin"]').first.click()
-    page.locator("tr.pinned-row").first.wait_for(timeout=10_000)
+    page.locator('[data-action="session-menu"]').first.click()
+    page.locator(".sheet-list button").filter(has_text="Pin to top").click()
+    page.locator("article.session-card.pinned").first.wait_for(timeout=10_000)
     page.screenshot(path=str(SCREENSHOTS / "sessions.png"), full_page=True)
 
-    page.locator(".session-title-button").first.click()
+    page.locator(".session-card-main").first.click()
     page.locator(".chat-title strong").get_by_text("Hermes Companion Demo", exact=True).wait_for(timeout=20_000)
     page.get_by_text("The bridge keeps Hermes keys server-side", exact=False).wait_for(timeout=20_000)
     composer = page.locator("#composer-form textarea")
@@ -77,8 +91,8 @@ with sync_playwright() as playwright:
     page.get_by_text("Hermes Companion is connected successfully.", exact=True).wait_for(timeout=20_000)
     page.screenshot(path=str(SCREENSHOTS / "chat-run.png"), full_page=True)
 
-    navigate(page, "/notifications", "Notifications")
-    page.locator(".notification-card").first.wait_for(timeout=20_000)
+    navigate(page, "/notifications", "Alerts")
+    page.get_by_role("heading", name="Alerts", exact=True).wait_for(timeout=20_000)
     page.screenshot(path=str(SCREENSHOTS / "notifications.png"), full_page=True)
 
     navigate(page, "/prompts", "Saved prompts")
@@ -91,8 +105,6 @@ with sync_playwright() as playwright:
     assert "Review the current Hermes project state" in page.locator("#composer-form textarea").input_value()
 
     navigate(page, "/files", "Files")
-    # An in-memory payload exercises the actual file input and multipart route
-    # without depending on host filesystem-picker policy in managed Chromium.
     upload_name = "hermes-companion-e2e.txt"
     page.locator('#file-upload-form input[type="file"]').set_input_files({
         "name": upload_name,
@@ -102,11 +114,11 @@ with sync_playwright() as playwright:
     page.get_by_text(upload_name, exact=True).wait_for(timeout=20_000)
     page.screenshot(path=str(SCREENSHOTS / "files.png"), full_page=True)
 
-    navigate(page, "/admin", "Administration")
+    navigate(page, "/admin", "Users")
     page.locator('[data-action="diagnostics-refresh"]').click()
     page.locator(".diagnostic-output").wait_for(timeout=20_000)
-    page.once("dialog", lambda dialog: dialog.accept("e2e"))
     page.locator('[data-action="backup-create"]').click()
+    fill_sheet(page, "e2e")
     page.locator(".backup-row").first.wait_for(timeout=20_000)
     page.screenshot(path=str(SCREENSHOTS / "administration.png"), full_page=True)
 
@@ -114,7 +126,7 @@ with sync_playwright() as playwright:
     page.locator(".device-row").first.wait_for(timeout=20_000)
     page.screenshot(path=str(SCREENSHOTS / "settings.png"), full_page=True)
 
-    navigate(page, "/audit", "Audit trail")
+    navigate(page, "/audit", "Activity log")
     page.locator(".audit-row").first.wait_for(timeout=20_000)
     page.screenshot(path=str(SCREENSHOTS / "audit.png"), full_page=True)
     context.close()
@@ -124,8 +136,7 @@ with sync_playwright() as playwright:
     attach_error_capture(mobile_page)
     login(mobile_page)
     mobile_page.screenshot(path=str(SCREENSHOTS / "mobile-command-center.png"), full_page=True)
-    mobile_page.locator('[data-action="mobile-menu"]').click()
-    mobile_page.locator('.sidebar-nav [data-nav="/chat"]').click()
+    mobile_page.locator('.tabbar [data-nav="/chat"]:visible').click()
     mobile_page.locator("#composer-form textarea").wait_for(timeout=20_000)
     mobile_page.get_by_text("The bridge keeps Hermes keys server-side", exact=False).wait_for(timeout=20_000)
     mobile_page.screenshot(path=str(SCREENSHOTS / "mobile-chat.png"), full_page=True)

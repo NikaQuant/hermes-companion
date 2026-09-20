@@ -90,6 +90,7 @@ def main() -> int:
         "UPLOAD_ROOT": str(work / "uploads"),
         "BACKUP_ROOT": str(work / "backups"),
         "HERMES_API_KEY_DEFAULT": "test-key-default",
+        "HERMES_API_KEY_RESEARCH": "test-key-research",
         "HERMES_API_KEY_MENTOS": "test-key-mentos",
         "HERMES_API_KEY_LANEB_LAB": "test-key-laneb",
         "HERMES_API_KEY_MQL5_FORGE": "test-key-mql5",
