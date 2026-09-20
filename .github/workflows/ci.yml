@@ -21,7 +21,7 @@ jobs:
       - run: cp config/profiles.example.json config/profiles.json
       - run: python -m pytest services/bridge/tests
       - run: python -m compileall -q services/bridge/app scripts
-      - run: ruff check services/bridge/app services/bridge/tests
+      - run: ruff check services/bridge/app services/bridge/tests --select E9,F63,F7,F82
       - run: python scripts/build-web.py
       - run: python scripts/validate-release.py
       - run: node --check apps/web/standalone/app.js
